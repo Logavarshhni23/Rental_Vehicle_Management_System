@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+import Vehicles from './Vehicles'
 
 const Home = () => {
 
   return (
     <>
       <div>
-        Home 
+        <Vehicles/>
       </div>
     </>
   );

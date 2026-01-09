@@ -23,7 +23,7 @@ const Login = () => {
       sessionStorage.setItem("isLoggedIn", "true");
 
       toast.success("Login successful");
-      role === "admin" ? navigate("/admin") : navigate("/");
+      role === "admin" ? navigate("/") : navigate("/");
     } catch (err) {
       toast.error(err.response?.data?.error || "Login failed");
     }

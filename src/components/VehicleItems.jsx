@@ -1,6 +1,8 @@
 import React from "react";
+import {Trash2, Edit} from 'lucide-react';
 
-const VehicleItems = ({ vehicle }) => {
+const VehicleItems = ({ vehicle, onDelete, onEdit }) => {
+  const role = sessionStorage.getItem("role");
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg shadow-gray-300 border border-gray-300 text-teal-900">
 
@@ -30,13 +32,29 @@ const VehicleItems = ({ vehicle }) => {
         </p>
       </div>
 
-      <button
-        className="mt-5 w-full py-3 rounded-lg font-semibold text-white
-                   bg-gradient-to-r from-teal-600 to-teal-950
-                   hover:opacity-90 transition"
-      >
-        Book Vehicle
-      </button>
+      <div className="flex items-center gap-2">
+        <button className="mt-5 flex-1 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-teal-600 to-teal-950 hover:opacity-90 transition">Book Vehicle</button>
+        {role === "admin" && (
+          <>
+            <button 
+              className="mt-5 p-3 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white transition duration-300 shadow-md hover:shadow-lg cursor-pointer" 
+              title="Edit Vehicle" 
+              onClick={() => onEdit(vehicle)}
+              type="button"
+            >
+              <Edit size={20} />
+            </button>
+            <button 
+              className="mt-5 p-3 rounded-full bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition duration-300 shadow-md hover:shadow-lg cursor-pointer" 
+              title="Delete Vehicle" 
+              onClick={() => onDelete(vehicle._id)}
+              type="button"
+            >
+              <Trash2 size={20} />
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };
