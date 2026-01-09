@@ -10,12 +10,12 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Booking from "./components/Booking";
-
+import UserLayout from "./layouts/UserLayout";
 // Admin Pages 
 import Profile from "./components/Profile";
 import AdminBookings from "./components/AdminBookings";
 import VehicleManagement from "./components/VehicleManagement";
-import Feedbacks from "./components/Feedbacks";
+import FeedBacks from "./components/FeedBacks";
 import Reports from "./components/Reports";
 
 // Route protection
@@ -44,11 +44,21 @@ const App = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="bookings" element={<AdminBookings />} />
           <Route path="vehicles" element={<VehicleManagement />} />
-          <Route path="feedbacks" element={<Feedbacks />} />
+          <Route path="feedbacks" element={<FeedBacks />} />
           <Route path="reports" element={<Reports />} />
         </Route>
 
+        {/* ---------- User Routes ---------- */}
+        <Route path="/user" element={<UserLayout/>}>
+          <Route index element={<Profile />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="bookings" element={<Booking />} />
+          <Route path="feedbacks" element={<FeedBacks />} />
+        </Route>
+
       </Routes>
+
+      
     </div>
   );
 };
