@@ -11,6 +11,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Booking from "./components/Booking";
 import UserLayout from "./layouts/UserLayout";
+import VehicleDetails from "./components/VehicleDetails";
 // Admin Pages 
 import Profile from "./components/Profile";
 import AdminBookings from "./components/AdminBookings";
@@ -26,12 +27,12 @@ const App = () => {
     <div className="min-h-screen">
       <Routes>
 
-        {/* ---------- User Routes ---------- */}
         <Route element={<HomeLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/vehicle/:id" element={<VehicleDetails/>}/>
         </Route>
 
         {/* ---------- Admin Routes ---------- */}

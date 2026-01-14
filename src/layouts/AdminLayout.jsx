@@ -1,13 +1,13 @@
 import React from "react";
 import { Outlet, NavLink, useNavigate, useLocation } from "react-router-dom";
-import {User,BookOpen,Car,MessageSquare,BarChart3,LogOut} from "lucide-react";
+import { User, BookOpen, Car, MessageSquare, BarChart3, LogOut } from "lucide-react";
 
 const AdminLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const handleLogout = () => {
-    navigate("/");
+    navigate("/"); // redirect to homepage/login
   };
 
   const menuItems = [
@@ -25,12 +25,14 @@ const AdminLayout = () => {
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-teal-900 text-white flex flex-col">
+      <aside className="w-64 bg-teal-900 text-white flex flex-col fixed h-screen">
+        {/* Logo / Title */}
         <div className="p-6 border-b border-teal-700">
           <h1 className="text-2xl font-bold">Admin Panel</h1>
         </div>
 
-        <nav className="flex-1 p-4 space-y-2">
+        {/* Menu */}
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           {menuItems.map((item) => (
             <NavLink
               key={item.path}
@@ -50,6 +52,7 @@ const AdminLayout = () => {
           ))}
         </nav>
 
+        {/* Logout */}
         <button
           onClick={handleLogout}
           className="m-4 flex items-center gap-3 p-3 rounded-lg bg-teal-800 hover:bg-red-600 transition"
@@ -60,15 +63,15 @@ const AdminLayout = () => {
       </aside>
 
       {/* Main Section */}
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col ml-64 h-screen">
         {/* Header */}
-        <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
+        <header className="bg-white shadow px-6 py-4 flex justify-between items-center flex-shrink-0">
           <h2 className="text-xl font-semibold text-gray-800">{pageTitle}</h2>
         </header>
 
         {/* Page Content */}
-        <section className="p-6 flex-1">
-          <div className="bg-white rounded-xl shadow p-6 h-full">
+        <section className="p-6 flex-1 overflow-y-auto">
+          <div className="bg-white rounded-xl shadow p-6 min-h-full">
             <Outlet />
           </div>
         </section>

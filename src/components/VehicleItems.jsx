@@ -1,59 +1,101 @@
 import React from "react";
-import {Trash2, Edit} from 'lucide-react';
+import { useNavigate } from "react-router-dom";
+import { Trash2, Edit, Store, User, Star } from 'lucide-react';
 
 const VehicleItems = ({ vehicle, onDelete, onEdit }) => {
   const role = sessionStorage.getItem("role");
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/vehicle/${vehicle._id}`);
+  };
+
+  const handleAction = (e, callback) => {
+    e.stopPropagation();
+    callback();
+  };
+
   return (
-    <div className="bg-white p-6 rounded-xl shadow-lg shadow-gray-300 border border-gray-300 text-teal-900">
-
-      <img
-        src={vehicle.image}
-        alt={vehicle.name}
-        className="w-full h-44 object-cover rounded-lg mb-4 border border-teal-900"
-      />
-
-      <h2 className="text-2xl font-bold text-center mb-3">
-        {vehicle.name}
-      </h2>
-
-      <div className="space-y-1 text-sm">
-        <p><span className="font-semibold">Type:</span> {vehicle.type}</p>
-        <p><span className="font-semibold">Model:</span> {vehicle.model}</p>
-        <p><span className="font-semibold">Color:</span> {vehicle.color}</p>
-        <p><span className="font-semibold">Price / Day:</span> ₹{vehicle.pricePerDay}</p>
-
-        <p>
-          <span className="font-semibold">Availability:</span>{" "}
-          {vehicle.availability ? (
-            <span className="text-green-600 font-semibold">Available</span>
-          ) : (
-            <span className="text-red-600 font-semibold">Not Available</span>
+    <div onClick={handleCardClick}  className="group bg-white rounded-3xl shadow-md border border-gray-100 overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl">
+      {/* Top Section: Image with Overlay */}
+      <div className="relative h-60 overflow-hidden">
+        <img
+          src={vehicle.image}
+          alt={vehicle.name}
+          className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
+        />
+        
+        {/* Admin Controls Only */}
+        <div className="absolute top-4 left-4 flex gap-2">
+          {role === "admin" && (
+            <>
+              <button 
+                onClick={(e) => handleAction(e, () => onEdit(vehicle))} 
+                className="bg-white/90 p-2 rounded-full shadow-sm hover:bg-teal-600 hover:text-white transition-colors"
+              >
+                <Edit size={16} />
+              </button>
+              <button 
+                onClick={(e) => handleAction(e, () => onDelete(vehicle._id))} 
+                className="bg-white/90 p-2 rounded-full shadow-sm hover:bg-red-500 hover:text-white transition-colors"
+              >
+                <Trash2 size={16} />
+              </button>
+            </>
           )}
-        </p>
+        </div>
+
+        {/* Bottom Image Overlay: Name and Specs */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-5 pt-16">
+          <div className="flex justify-between items-end">
+            <div>
+              <h2 className="text-white text-2xl font-bold tracking-tight">
+                {vehicle.name} {vehicle.model}
+              </h2>
+              <p className="text-gray-300 text-sm mt-1 font-medium">
+                {vehicle.type} • {vehicle.fuelType} • {vehicle.seats} Seats
+              </p>
+            </div>
+            
+            {/* Empty Rating Badge */}
+            <div className="bg-black/40 border border-yellow-500/50 backdrop-blur-md text-white px-3 py-1.5 rounded-md flex items-center gap-1 min-w-[55px]">
+              <Star size={14} className="fill-yellow-500 text-yellow-500" />
+              <span className="text-sm font-bold"></span> 
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="flex items-center gap-2">
-        <button className="mt-5 flex-1 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-teal-600 to-teal-950 hover:opacity-90 transition">Book Vehicle</button>
-        {role === "admin" && (
-          <>
-            <button 
-              className="mt-5 p-3 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white transition duration-300 shadow-md hover:shadow-lg cursor-pointer" 
-              title="Edit Vehicle" 
-              onClick={() => onEdit(vehicle)}
-              type="button"
-            >
-              <Edit size={20} />
-            </button>
-            <button 
-              className="mt-5 p-3 rounded-full bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition duration-300 shadow-md hover:shadow-lg cursor-pointer" 
-              title="Delete Vehicle" 
-              onClick={() => onDelete(vehicle._id)}
-              type="button"
-            >
-              <Trash2 size={20} />
-            </button>
-          </>
-        )}
+      {/* Middle Section: Delivery & Pricing */}
+      <div className="p-5">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2 text-green-700 font-bold text-base">
+            <div className="bg-green-100 p-1.5 rounded-md">
+              <Store size={18} />
+            </div>
+            <span>Delivery Available</span>
+          </div>
+          
+          <div className="text-right">
+            <p className="text-teal-950 font-black text-2xl">
+              ₹{vehicle.pricePerDay}<span className="text-base font-normal text-gray-500">/hr</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer Section: Host Info */}
+      <div className="bg-gradient-to-r from-sky-200 to-white px-5 py-2 flex items-center">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-sky-200 rounded-full flex items-center justify-center border border-white shadow-sm">
+            <User size={20} className="text-sky-600" />
+          </div>
+          <p className="text-sky-900 text-base font-bold italic">
+            By <span>
+              {vehicle.hostedBy}
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );

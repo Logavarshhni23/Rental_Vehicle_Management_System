@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <div className="flex justify-between bg-teal-900 text-white items-center font-bold p-5 shadow-lg">
-        <h1 className="text-2xl">Rental</h1>
+        <h1 className="text-2xl italic">Rentigo</h1>
         <nav className="flex gap-5">
             <Link to="/" className="p-2 transition duration-300 hover:text-teal-600"><House size={25}/></Link>
             {role === "admin" && (
