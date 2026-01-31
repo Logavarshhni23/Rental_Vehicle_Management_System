@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ArrowLeft, Heart, Info,UserRound } from "lucide-react";
+import { ArrowLeft, Heart, UserRound, Calendar } from "lucide-react";
+import { toast } from "react-toastify";
 
 const VehicleDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [vehicle, setVehicle] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // --- Booking States ---
+  const [pickupDate, setPickupDate] = useState("");
+  const [dropDate, setDropDate] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const fetchVehicle = async () => {
@@ -23,12 +29,60 @@ const VehicleDetails = () => {
     fetchVehicle();
   }, [id]);
 
+  // --- Logic to calculate total price based on days ---
+  useEffect(() => {
+    if (pickupDate && dropDate && vehicle) {
+      const start = new Date(pickupDate);
+      const end = new Date(dropDate);
+      const diffTime = end - start;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays > 0) {
+        setTotalPrice(diffDays * vehicle.pricePerDay);
+      } else {
+        setTotalPrice(0);
+      }
+    }
+  }, [pickupDate, dropDate, vehicle]);
+
+  const handleBooking = async () => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.warn("Please login to book a vehicle");
+      navigate("/login");
+      return;
+    }
+
+    if (!pickupDate || !dropDate) {
+      toast.error("Please select both pickup and drop-off dates");
+      return;
+    }
+
+    if (totalPrice <= 0) {
+      toast.error("Drop-off date must be after pickup date");
+      return;
+    }
+
+    try {
+      await axios.post(
+        "http://localhost:3000/bookings",
+        { vehicleId: id, pickupDate, dropDate },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success("Booking Request Sent Successfully!");
+      navigate("/user/bookings");
+    } catch (err) {
+      toast.error(err.response?.data?.error || "Booking failed");
+    }
+  };
+
   if (loading)
     return (
       <div className="flex justify-center items-center h-screen text-gray-500">
         Loading...
       </div>
     );
+
   if (!vehicle)
     return (
       <div className="text-center mt-20 text-red-500 font-bold text-xl">
@@ -48,8 +102,7 @@ const VehicleDetails = () => {
           onClick={() => navigate(-1)}
           className="flex items-center gap-2 text-teal-800 font-medium"
         >
-          <ArrowLeft size={20} />{" "}
-          <span className="hover:underline">Back</span>
+          <ArrowLeft size={20} /> <span className="hover:underline">Back</span>
         </button>
         <div className="flex gap-4">
           <Heart
@@ -80,7 +133,8 @@ const VehicleDetails = () => {
               {vehicle.type} • {vehicle.fuelType} • {vehicle.seats} Seats
             </p>
             <span className="text-teal-600 text-sm mt-2 font-medium flex items-center gap-1">
-              <UserRound size={15} className="fill-teal-600"/> Hosted by {vehicle.hostedBy}
+              <UserRound size={15} className="fill-teal-600" /> Hosted by{" "}
+              {vehicle.hostedBy}
             </span>
           </div>
 
@@ -128,7 +182,44 @@ const VehicleDetails = () => {
               </div>
             </div>
 
+            {/* --- Date Selection UI --- */}
+            <div className="space-y-4 mb-6">
+              <div>
+                <label className="text-xs font-bold text-gray-500 uppercase ml-1">
+                  Pickup Date
+                </label>
+                <input
+                  type="date"
+                  min={new Date().toISOString().split("T")[0]}
+                  value={pickupDate}
+                  onChange={(e) => setPickupDate(e.target.value)}
+                  className="w-full mt-1 p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-600 text-gray-700"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-gray-500 uppercase ml-1">
+                  Drop-off Date
+                </label>
+                <input
+                  type="date"
+                  min={pickupDate || new Date().toISOString().split("T")[0]}
+                  value={dropDate}
+                  onChange={(e) => setDropDate(e.target.value)}
+                  className="w-full mt-1 p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-600 text-gray-700"
+                />
+              </div>
+            </div>
+
+            {/* Display Total Price if dates are valid */}
+            {totalPrice > 0 && (
+              <div className="mb-6 p-4 bg-teal-50 rounded-xl border border-teal-100 flex justify-between items-center">
+                <span className="text-teal-800 font-semibold">Total Price:</span>
+                <span className="text-2xl font-black text-teal-900">₹{totalPrice}</span>
+              </div>
+            )}
+
             <button
+              onClick={handleBooking}
               disabled={!vehicle.availability}
               className={`w-full py-4 rounded-xl font-bold text-lg text-white transition-all transform active:scale-95 ${
                 vehicle.availability
