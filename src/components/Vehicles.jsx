@@ -53,7 +53,6 @@ const Vehicles = () => {
 
   return (
     <div className='p-6'>
-      {/* Edit Vehicle Modal Overlay */}
       {role === 'admin' && vehicleToEdit && (
         <div className='fixed inset-0 bg-gray-900/30 flex justify-center items-center z-50'>
           <div 
@@ -70,7 +69,6 @@ const Vehicles = () => {
         </div>
       )}
 
-      <h1 className='text-white text-2xl font-bold text-center'>Vehicles</h1>
       <div className='p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
         {vehicles.map((vehicle) => (
           <VehicleItems

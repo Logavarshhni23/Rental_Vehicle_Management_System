@@ -28,7 +28,7 @@ const Profile = () => {
 
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="bg-gradient-to-br from-teal-800 to-teal-950 rounded-[2.5rem] p-10 text-white mb-10 shadow-2xl shadow-teal-900/20 relative overflow-hidden">
+      <div className="bg-gradient-to-b from-teal-800 to-teal-950 rounded-4xl p-10 text-white mb-10 shadow-2xl shadow-teal-900/20 relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-6">
             <div className="w-24 h-24 bg-white/10 backdrop-blur-md rounded-3xl flex items-center justify-center border border-white/20 shadow-inner">
