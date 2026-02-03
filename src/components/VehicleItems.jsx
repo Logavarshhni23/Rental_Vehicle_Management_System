@@ -17,7 +17,6 @@ const VehicleItems = ({ vehicle, onDelete, onEdit }) => {
 
   return (
     <div onClick={handleCardClick}  className="group bg-white rounded-3xl shadow-md border border-gray-100 overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl">
-      {/* Top Section: Image with Overlay */}
       <div className="relative h-60 overflow-hidden">
         <img
           src={vehicle.image}
@@ -25,7 +24,6 @@ const VehicleItems = ({ vehicle, onDelete, onEdit }) => {
           className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
         />
         
-        {/* Admin Controls Only */}
         <div className="absolute top-4 left-4 flex gap-2">
           {role === "admin" && (
             <>
@@ -45,7 +43,6 @@ const VehicleItems = ({ vehicle, onDelete, onEdit }) => {
           )}
         </div>
 
-        {/* Bottom Image Overlay: Name and Specs */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-5 pt-16">
           <div className="flex justify-between items-end">
             <div>
@@ -56,8 +53,7 @@ const VehicleItems = ({ vehicle, onDelete, onEdit }) => {
                 {vehicle.type} • {vehicle.fuelType} • {vehicle.seats} Seats
               </p>
             </div>
-            
-            {/* Empty Rating Badge */}
+         
             <div className="bg-black/40 border border-yellow-500/50 backdrop-blur-md text-white px-3 py-1.5 rounded-md flex items-center gap-1 min-w-[55px]">
               <Star size={14} className="fill-yellow-500 text-yellow-500" />
               <span className="text-sm font-bold"></span> 
@@ -66,7 +62,6 @@ const VehicleItems = ({ vehicle, onDelete, onEdit }) => {
         </div>
       </div>
 
-      {/* Middle Section: Delivery & Pricing */}
       <div className="p-5">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2 text-green-700 font-bold text-base">
@@ -84,7 +79,6 @@ const VehicleItems = ({ vehicle, onDelete, onEdit }) => {
         </div>
       </div>
 
-      {/* Footer Section: Host Info */}
       <div className="bg-gradient-to-r from-sky-200 to-white px-5 py-2 flex items-center">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-sky-200 rounded-full flex items-center justify-center border border-white shadow-sm">

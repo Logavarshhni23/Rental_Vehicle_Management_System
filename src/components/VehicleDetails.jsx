@@ -10,7 +10,6 @@ const VehicleDetails = () => {
   const [vehicle, setVehicle] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // --- Booking States ---
   const [pickupDate, setPickupDate] = useState("");
   const [dropDate, setDropDate] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
@@ -29,7 +28,6 @@ const VehicleDetails = () => {
     fetchVehicle();
   }, [id]);
 
-  // --- Logic to calculate total price based on days ---
   useEffect(() => {
     if (pickupDate && dropDate && vehicle) {
       const start = new Date(pickupDate);
@@ -79,7 +77,7 @@ const VehicleDetails = () => {
   if (loading)
     return (
       <div className="flex justify-center items-center h-screen text-gray-500">
-        Loading...
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-800"></div>
       </div>
     );
 
@@ -96,7 +94,6 @@ const VehicleDetails = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-8 bg-white min-h-screen">
-      {/* 🔝 Navigation & Top Actions */}
       <div className="flex justify-between items-center mb-6">
         <button
           onClick={() => navigate(-1)}
@@ -112,7 +109,6 @@ const VehicleDetails = () => {
         </div>
       </div>
 
-      {/* 📷 Hero Image Section */}
       <div className="mb-8">
         <img
           src={vehicle.image}
@@ -121,9 +117,7 @@ const VehicleDetails = () => {
         />
       </div>
 
-      {/* 📄 Main Content Grid */}
       <div className="grid lg:grid-cols-3 gap-12">
-        {/* Left Column (Info & Features) */}
         <div className="lg:col-span-2">
           <div className="mb-6">
             <h1 className="text-3xl font-bold text-gray-900">
@@ -140,7 +134,6 @@ const VehicleDetails = () => {
 
           <hr className="my-6 border-gray-100" />
 
-          {/* Features Section */}
           <section className="mb-8">
             <h3 className="text-xl font-bold text-gray-800 mb-3">Features</h3>
             <div className="flex flex-wrap gap-3">
@@ -159,7 +152,6 @@ const VehicleDetails = () => {
           </section>
         </div>
 
-        {/* Right Column (Price & Booking Card) */}
         <div className="lg:col-span-1">
           <div className="sticky top-8 bg-white border border-gray-200 p-6 rounded-2xl shadow-xl shadow-gray-100">
             <div className="flex justify-between items-end mb-6">
@@ -182,7 +174,6 @@ const VehicleDetails = () => {
               </div>
             </div>
 
-            {/* --- Date Selection UI --- */}
             <div className="space-y-4 mb-6">
               <div>
                 <label className="text-xs font-bold text-gray-500 uppercase ml-1">
@@ -210,7 +201,6 @@ const VehicleDetails = () => {
               </div>
             </div>
 
-            {/* Display Total Price if dates are valid */}
             {totalPrice > 0 && (
               <div className="mb-6 p-4 bg-teal-50 rounded-xl border border-teal-100 flex justify-between items-center">
                 <span className="text-teal-800 font-semibold">Total Price:</span>

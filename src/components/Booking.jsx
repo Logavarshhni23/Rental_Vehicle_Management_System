@@ -48,7 +48,7 @@ const Booking = () => {
       </div>
 
       {bookings.length === 0 ? (
-        <div className="bg-white border-2 border-dashed border-gray-200 rounded-[2rem] p-20 text-center">
+        <div className="bg-white border-2 border-dashed border-gray-200 rounded-3xl p-20 text-center">
           <div className="bg-gray-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
             <Car size={40} className="text-gray-300" />
           </div>
@@ -64,7 +64,6 @@ const Booking = () => {
               key={booking._id} 
               className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm hover:shadow-xl hover:scale-[1.01] transition-all duration-300 flex flex-col md:flex-row items-center gap-6"
             >
-              {/* Vehicle Image */}
               <div className="w-full md:w-40 h-28 bg-gray-50 rounded-2xl overflow-hidden flex items-center justify-center p-2">
                 <img 
                   src={booking.vehicle?.image} 
@@ -73,7 +72,6 @@ const Booking = () => {
                 />
               </div>
 
-              {/* Trip Info */}
               <div className="flex-1 space-y-3 text-center md:text-left">
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">
@@ -93,8 +91,7 @@ const Booking = () => {
                 </div>
               </div>
 
-              {/* Price & Status */}
-              <div className="flex flex-col items-center md:items-end gap-3 min-w-[140px]">
+              <div className="flex flex-col items-center md:items-end gap-3 min-w-3xl">
                 <div className="text-right">
                   <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">Total Paid</p>
                   <p className="text-2xl font-black text-teal-950">₹{booking.totalAmount}</p>
