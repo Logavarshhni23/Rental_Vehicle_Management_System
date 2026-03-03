@@ -16,7 +16,7 @@ import VehicleDetails from "./components/VehicleDetails";
 import Profile from "./components/Profile";
 import AdminBookings from "./components/AdminBookings";
 import VehicleManagement from "./components/VehicleManagement";
-import FeedBacks from "./components/Temp";
+import FeedBacks from "./components/FeedBacks";
 import Reports from "./components/Reports";
 
 // Route protection
