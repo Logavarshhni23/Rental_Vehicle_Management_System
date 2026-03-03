@@ -1,9 +1,9 @@
 import React from 'react'
 
-const FeedBacks = () => {
+const Temp = () => {
   return (
     <div>FeedBacks</div>
   )
 }
 
-export default FeedBacks;
+export default Temp;
