@@ -1,0 +1,19 @@
+# Build output
+target/
+
+# Local credentials - never commit this
+src/main/resources/application-local.properties
+src/main/resources/*.env
+src/main/resources/application-*.properties
+
+# Keep only the base application.properties
+!src/main/resources/application.properties
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db

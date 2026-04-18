@@ -1,0 +1,37 @@
+# ========================
+# Backend - Credentials
+# ========================
+backend/src/main/resources/application-local.properties
+backend/src/main/resources/*.env
+backend/target/
+
+# ========================
+# Frontend
+# ========================
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# ========================
+# IDE & Editor
+# ========================
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# ========================
+# OS Files
+# ========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========================
+# Logs
+# ========================
+*.log
+logs/
