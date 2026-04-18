@@ -4,8 +4,7 @@ import { Car } from "lucide-react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import BookingItems from "./BookingItems";
-
-const API = "http://localhost:8080";
+import API from "../api";
 
 const Booking = () => {
   const [bookings, setBookings] = useState([]);

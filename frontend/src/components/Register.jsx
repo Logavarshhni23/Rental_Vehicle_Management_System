@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import API from "../api";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -14,7 +15,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/auth/register", {
+      const res = await axios.post(`${API}/auth/register`, {
         name,
         email,
         phone,

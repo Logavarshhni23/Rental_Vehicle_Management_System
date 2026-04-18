@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { User, Mail, Phone, ShieldCheck, Calendar, LogOut, Activity } from "lucide-react";
 import { toast } from "react-toastify";
+import API from "../api";
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -11,7 +12,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const token = sessionStorage.getItem("token");
-        const res = await axios.get("http://localhost:8080/auth/profile", {
+        const res = await axios.get(`${API}/auth/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUserData(res.data);

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ArrowLeft, Heart, UserRound, Calendar } from "lucide-react";
 import { toast } from "react-toastify";
+import API from "../api";
 
 const VehicleDetails = () => {
   const { id } = useParams();
@@ -15,7 +16,7 @@ const VehicleDetails = () => {
   const [dropDate, setDropDate] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const API = "http://localhost:8080";
+  const API = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
   useEffect(() => {
     const fetchVehicle = async () => {

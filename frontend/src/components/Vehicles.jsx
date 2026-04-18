@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import VehicleItems from './VehicleItems';
 import Form from './VehicleForm';
+import API from '../api';
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -12,7 +13,7 @@ const Vehicles = () => {
 
   const fetchVehicles = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/vehicles');
+      const res = await axios.get(`${API}/vehicles`);
       setVehicles(res.data);
     } catch (err) {
       console.error('Error fetching vehicles:', err.message);
@@ -25,7 +26,7 @@ const Vehicles = () => {
       try {
         const token = sessionStorage.getItem('token');
         console.log("Delete token:", token);
-        const response = await axios.delete(`http://localhost:8080/vehicles/${vehicleId}`, {
+        const response = await axios.delete(`${API}/vehicles/${vehicleId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log("Delete response:", response.data);

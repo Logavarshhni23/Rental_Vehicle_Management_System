@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { CheckCircle, XCircle, Clock, User, Car as CarIcon, Calendar } from "lucide-react";
+import API from "../api";
 
 const AdminBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -10,7 +11,7 @@ const AdminBookings = () => {
   const fetchAllBookings = async () => {
     try {
       const token = sessionStorage.getItem("token");
-      const res = await axios.get("http://localhost:8080/bookings", {
+      const res = await axios.get(`${API}/bookings`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBookings(res.data);
@@ -25,7 +26,7 @@ const AdminBookings = () => {
     try {
       const token = sessionStorage.getItem("token");
       await axios.put(
-        `http://localhost:8080/bookings/status/${id}`,
+        `${API}/bookings/status/${id}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

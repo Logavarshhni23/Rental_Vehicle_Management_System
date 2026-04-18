@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import API from "../api";
 
 const VehicleForm = ({ onSuccess, vehicleToEdit, onEditComplete }) => {
   const [formData, setFormData] = useState({
@@ -86,7 +87,7 @@ const VehicleForm = ({ onSuccess, vehicleToEdit, onEditComplete }) => {
       if (vehicleToEdit) {
         // Update existing vehicle
         const response = await axios.put(
-          `http://localhost:8080/vehicles/${vehicleToEdit._id}`,
+          `${API}/vehicles/${vehicleToEdit._id}`,
           payload,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -94,7 +95,7 @@ const VehicleForm = ({ onSuccess, vehicleToEdit, onEditComplete }) => {
       } else {
         // Add new vehicle
         const response = await axios.post(
-          "http://localhost:8080/vehicles",
+          `${API}/vehicles`,
           payload,
           { headers: { Authorization: `Bearer ${token}` } }
         );
